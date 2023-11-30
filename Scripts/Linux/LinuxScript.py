@@ -62,22 +62,22 @@ class Tools:
             ]
         )
 
-    def remove_wireshark():
+    def remove_wireshark(self):
         subprocess.run(["sudo", "apt-get", "remove", "--purge", "wireshark"])
         subprocess.run(["sudo", "apt-get", "autoremove"])
 
-    def update_firefox():
+    def update_firefox(self):
         subprocess.run(["sudo", "apt", "install", "firefox"])
         # subprocess.run(["sudo", "apt-get", "install", "--only-upgrade", "firefox"])
 
-    def enable_ssh():
+    def enable_ssh(self):
         subprocess.run(["sudo", "systemctl", "enable", "ssh"])
         subprocess.run(["sudo", "systemctl", "start", "ssh"])
 
-    def enable_firewall():
+    def enable_firewall(self):
         subprocess.run(["sudo", "ufw", "enable"])
 
-    def disable_ctrl_alt_del():
+    def disable_ctrl_alt_del(self):
         subprocess.run(
             [
                 "sudo",
@@ -88,13 +88,13 @@ class Tools:
             ]
         )
 
-    def update_os():
+    def update_os(self):
         subprocess.run(["sudo", "apt", "update"])
         subprocess.run(["sudo", "apt", "upgrade"])
         subprocess.run(["sudo", "apt", "full-upgrade"])
         subprocess.run(["sudo", "apt", "autoremove"])
 
-    def disable_guest_account():
+    def disable_guest_account(self):
         subprocess.run(["sudo", "usermod", "--expiredate", "1", "guest"])
 
     change_min_password_length(
