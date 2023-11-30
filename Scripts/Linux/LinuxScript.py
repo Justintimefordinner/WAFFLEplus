@@ -17,8 +17,8 @@ class Tools:
     def change_min_password_length(length):
         check_command = "grep -q 'minlen=' /etc/pam.d/common-password && echo 'exists' || echo 'not exists'"
         check_process = subprocess.run(
-            check_command, shell=True, capture_output=True, text=True
-        )
+            check_command, shell=True, capture_output=True, text=True, 
+        check=True)
         check_result = check_process.stdout.strip()
         try:
             if check_result == "exists":
@@ -35,8 +35,8 @@ class Tools:
     def change_min_password_age(age):
         check_command = "grep -q 'minlen=' /etc/pam.d/common-password && echo 'exists' || echo 'not exists'"
         check_process = subprocess.run(
-            check_command, shell=True, capture_output=True, text=True
-        )
+            check_command, shell=True, capture_output=True, text=True, 
+        check=True)
         check_result = check_process.stdout.strip()
 
         try:
@@ -59,23 +59,23 @@ class Tools:
                 "-i",
                 f"s/^PASS_COMPLEXITY.*/PASS_COMPLEXITY {complexity}/",
                 "/etc/login.defs",
-            ]
-        )
+            ], 
+        check=True)
 
     def remove_wireshark():
-        subprocess.run(["sudo", "apt-get", "remove", "--purge", "wireshark"])
-        subprocess.run(["sudo", "apt-get", "autoremove"])
+        subprocess.run(["sudo", "apt-get", "remove", "--purge", "wireshark"], check=True)
+        subprocess.run(["sudo", "apt-get", "autoremove"], check=True)
 
     def update_firefox():
-        subprocess.run(["sudo", "apt", "install", "firefox"])
+        subprocess.run(["sudo", "apt", "install", "firefox"], check=True)
         # subprocess.run(["sudo", "apt-get", "install", "--only-upgrade", "firefox"])
 
     def enable_ssh():
-        subprocess.run(["sudo", "systemctl", "enable", "ssh"])
-        subprocess.run(["sudo", "systemctl", "start", "ssh"])
+        subprocess.run(["sudo", "systemctl", "enable", "ssh"], check=True)
+        subprocess.run(["sudo", "systemctl", "start", "ssh"], check=True)
 
     def enable_firewall():
-        subprocess.run(["sudo", "ufw", "enable"])
+        subprocess.run(["sudo", "ufw", "enable"], check=True)
 
     def disable_ctrl_alt_del():
         subprocess.run(
@@ -85,17 +85,17 @@ class Tools:
                 "-i",
                 "/^exec uim-systray/a Exec=/bin/false",
                 "/etc/lightdm/lightdm.conf",
-            ]
-        )
+            ], 
+        check=True)
 
     def update_os():
-        subprocess.run(["sudo", "apt", "update"])
-        subprocess.run(["sudo", "apt", "upgrade"])
-        subprocess.run(["sudo", "apt", "full-upgrade"])
-        subprocess.run(["sudo", "apt", "autoremove"])
+        subprocess.run(["sudo", "apt", "update"], check=True)
+        subprocess.run(["sudo", "apt", "upgrade"], check=True)
+        subprocess.run(["sudo", "apt", "full-upgrade"], check=True)
+        subprocess.run(["sudo", "apt", "autoremove"], check=True)
 
     def disable_guest_account():
-        subprocess.run(["sudo", "usermod", "--expiredate", "1", "guest"])
+        subprocess.run(["sudo", "usermod", "--expiredate", "1", "guest"], check=True)
 
     change_min_password_length(
         10
